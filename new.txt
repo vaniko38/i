@@ -1,1 +1,75 @@
-txt
+git config --global user.name Nodar
+git config --global user.email nodar.kobauri.1@btu.edu.ge
+
+
+git config --local user.name Nodar
+git config --local user.email nodar.kobauri.1@btu.edu.ge
+
+git init
+
+
+
+
+SSH გასაღებების შესამოწმების ბრძანება:
+ls -al ~/.ssh
+თუ გასაღები არ გაქვთ ან ახლის შექმნა გინდათ, გამოიყენეთ ბრძანება:
+
+ssh-keygen -t rsa -b 4096 -C "github-ზე მითითებული ელფოსტა"
+შეიქმნება 2 ფაილი id_rsa.pub-ღია გასაღები და id_rsa-დახურული
+
+გასაღები. ღია გასაღების შიგთავსი უნდა დაამატოთ github-ზე
+ssh-კონფიგურაციის გვერდზე.
+
+
+cat  ~/.ssh/id_rsa.pub
+და რაც იქნება ვამატებ 
+
+
+● ბოლო ქომითის გაუქმების ალიასი
+git config --global alias.undo "reset --soft HEAD~1"
+● ბოლო კომიტის სრულად გაუქმება
+git config --global alias.hardundo "reset --hard HEAD~1"
+● ბოლო კომიტის დეტალები
+git config --global alias.last "log -1 HEAD"
+
+git reset --soft master~2
+git restore --stage tmp.txt
+
+
+Git reset –soft ბრძანების მეშვეობით ყველა ცვლილებას ვერსიებს შორის ვათავსებთ
+staging სივრცეში
+Git reset –mixed ბრძანების მეშვეობით ყველა ცვლილებას ვერსიებს შორის ვათავსებთ
+Working directory სივრცეში. Reset ბრძანება ნაგულისხმევი მნიშვნელობით
+(პარამეტრს თუ არ გადავცემთ) იგივენაირად მუშაობს
+Git reset –hard ბრძანების მეშვეობით ყველა ცვლილებას ვერსიებს შორის ვშლით.
+–hard პარამეტრის გამოყენება დიდ სიგრთხილეს საჭიროებს ლოკალურად ხოლო
+მოშორებულ (remote) გარემოზე რომელშიც სხვა პირებიც მუშაობენ მისი გამოყენება
+არ არის რეკომენდირებული, პოტენციური კონფლიქტების და ინფორმაციის დაკარგვის
+თავიდან ასაცილებლად
+
+
+ტაგის შექმნა - git tag “ტაგის სახელი”
+● ტაგების სიის ნახვა - git tag
+● ტაგის წაშლა - git tag -d “ტაგის სახელი”
+● ანოტირებული ტაგის შექმნა (ტაგის რომელიც მეტ ინფორმაციას შეიცავს
+commit-ის შესახებ) - git tag -a “ტაგის სახელი”
+-m "ტეგის აღწერა"
+
+git config --global alias.undo "reset --soft HEAD~1"
+
+
+
+ბრენჩის წაშლა - git branch -d “ბრენჩის სახელი”
+ამ ბრძანებით იშლება ისეთი ბრენჩები რომლებიც უკვე დამატებულია
+(merged) ძირითად ბრენჩზე. დაუმერჯავი ბრენჩის წასაშლელად -d უნდა
+ჩანაცვლდეს -D ანუ:
+git branch -D “ბრენჩის სახელი”
+
+
+Git stash apply - აღადგენსშენახულ ცვლილებას თუმცა stash-ი მაინც
+დარცება
+● Git stash pop - აღადგენს ცვლილებებს და წაშლის stash-იდან
+
+
+● git stash -u - მოქმედებს Untracked ფაილებზე
+● git stash -a - მოქმედებს Ignored ფაილებზე
