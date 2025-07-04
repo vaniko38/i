@@ -1,1 +1,68 @@
-tmp1 txt
+Gitlab pipeline-ის სიზუსტის შესამოწმებლად შეგიძლიათ
+დარეგისტრირდეთ gitlab-ზე და ისე ცადოთ pipeline-ის გაშვება
+
+● დაწერეთ ფაიფლაინი რომელშიც იქნება 3 stage (build, test,
+deploy) build stage-ში დაამატეთ 2 job-ი, test stage-ში
+დაამატეთ 3 job-ი და deploy stage-ში დაამატეთ 2 job-ი
+● თითო ჯობში დაამატეთ რამოდენიმე ბრძანება ერთერთი
+აუცილებლად უნდა იყოს log ფაილში ტექსტის დამატება,
+ფაიფლაინის დასრულების შემდეგ log ფაილი უნდა ინახავდეს
+ყველა job-იდან დამატებულ ტექსტს
+● დაამატეთ 3 ცვლადი: თქვენი სახელი, pipeline-ის ვერსია და log
+ფაილი
+● დაამატეთ პირობები: test-ის job2 და job3-ის წინაპირობა უნდა
+იყოს build-ის job2, ხოლო deploy job2-ის წინაპირობა უნდა
+იყოს test-ის job2 და job3
+
+variables:
+  MY_NAME: Vaniko
+  PIPELINE_VERSION: v1.0
+  LOG_FILE: pipeline.log
+stages:
+- ".pre"
+- build
+- test
+- deploy
+- ".post"
+build_job1:
+  stage: build
+  script:
+  - echo "Running build job 1"
+  - echo "Build Job 1 by $MY_NAME - version $PIPELINE_VERSION" >> $LOG_FILE
+build_job2:
+  stage: build
+  script:
+  - echo "Running build job 2"
+  - echo "Build Job 2 completed" >> $LOG_FILE
+test_job1:
+  stage: test
+  script:
+  - echo "Running test job 1"
+  - echo "Test Job 1 executed" >> $LOG_FILE
+test_job2:
+  stage: test
+  needs:
+  - build_job2
+  script:
+  - echo "Running test job 2"
+  - echo "Test Job 2 passed" >> $LOG_FILE
+test_job3:
+  stage: test
+  needs:
+  - build_job2
+  script:
+  - echo "Running test job 3"
+  - echo "Test Job 3 succeeded" >> $LOG_FILE
+deploy_job1:
+  stage: deploy
+  script:
+  - echo "Running deploy job 1"
+  - echo "Deploy Job 1 finished" >> $LOG_FILE
+deploy_job2:
+  stage: deploy
+  needs:
+  - test_job2
+  - test_job3
+  script:
+  - echo "Running deploy job 2"
+  - echo "Deploy Job 2 complete" >> $LOG_FILE
